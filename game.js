@@ -25,15 +25,12 @@ var blockHard = document.getElementsByClassName('block-hard');
 var startHard = document.getElementById('start-hard');
 var notiHard = document.getElementById('noti-hard');
 
-quit.addEventListener(
-    "click",
-    function () {
-        easy.style.animation = "fadeout 500ms"
-        easy.style.visibility = 'hidden'
-        home.style.animation = "fadein 500ms"
-        home.style.visibility = 'visible'
-    }
-);
+quit.onclick = function () {
+    easy.style.animation = "fadeout 500ms"
+    easy.style.visibility = 'hidden'
+    home.style.animation = "fadein 500ms"
+    home.style.visibility = 'visible'
+}
 
 quitNorm.onclick = function () {
     norm.style.animation = "fadeout 500ms"
@@ -74,6 +71,8 @@ toHard.onclick = function () {
     home.style.animation = "fadeout 500ms"
     hard.style.visibility = 'visible';
     hard.style.animation = "fadein 500ms"
+    startHard.innerText = "Start"
+    notiHard.innerText = ""
 }
 
 nut.onclick = function () {
@@ -114,7 +113,6 @@ function play() {
                 how.innerText = ""
             }
         }
-
     }
 }
 
@@ -129,15 +127,17 @@ function playNorm() {
 
     var q1 = Math.floor(Math.random() * 9)
     blockNorm[q1].style.animation = "empha 1s";
-    var q2;
+    var q2 = Math.floor(Math.random() * 9);
     var i;
 
     setTimeout(() => {
-        var q3 = Math.floor(Math.random() * 9)
-        blockNorm[q3].style.animation = "empha 1s";
-        q2 = q3
-        setTimeout(() => { resNorm(); }, 1000)
-    }, 1000);
+        blockNorm[q1].style.animation = "unset";
+        blockNorm[q2].style.animation = "empha 1s";
+        setTimeout(() => {
+            blockNorm[q2].style.animation = "unset";
+            resNorm();
+        }, 500)
+    }, 500);
 
     function resNorm() {
         for (i = 0; i < blockNorm.length; i++) {
@@ -146,7 +146,6 @@ function playNorm() {
                 notiNorm.style.color = "red"
                 notiNorm.style.fontSize = "50px";
                 notiNorm.innerText = "False!\nTry again!"
-                howNorm.innerText = ""
             }
         }
 
@@ -205,14 +204,17 @@ function playHard() {
     var i;
 
     setTimeout(() => {
+        blockHard[q1].style.animation = "unset"
         blockHard[q2].style.animation = "empha 750ms"
         setTimeout(() => {
+            blockHard[q2].style.animation = "unset"
             blockHard[q3].style.animation = "empha 750ms"
             setTimeout(() => {
+                blockHard[q3].style.animation = "unset"
                 resHard()
-            }, 750)
-        }, 750)
-    }, 750)
+            }, 375)
+        }, 375)
+    }, 375)
 
     function resHard() {
         for (i = 0; i < blockHard.length; i++) {
